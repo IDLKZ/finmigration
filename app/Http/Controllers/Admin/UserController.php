@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Role;
 use Illuminate\Http\Request;
+use Proengsoft\JsValidation\Facades\JsValidatorFacade as JsValidator;
 
 class UserController extends Controller
 {
@@ -29,7 +30,10 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::all();
-        return  view("admin.user.create",compact("roles"));
+        $validator = JsValidator::make(
+          ["name"=>"required|max:255","email"=>"required|email","password"=>"required|min:4|max:255","role_id"=>"required"]
+        );
+        return  view("admin.user.create",compact("roles","validator"));
     }
 
     /**
@@ -77,7 +81,11 @@ class UserController extends Controller
     {
         $user = User::find($id);
         if($user){
-            return view("admin.user.edit",compact("user",'roles'));
+            $roles = Role::all();
+            $validator = JsValidator::make(
+                ["name"=>"required|max:255","email"=>"required|email","password"=>"required|min:4|max:255","role_id"=>"required"]
+            );
+            return view("admin.user.edit",compact("user",'roles','validator'));
         }
         else{
             toastr()->error("Данный пользователь не найден");

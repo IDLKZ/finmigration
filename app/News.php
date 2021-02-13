@@ -2,8 +2,10 @@
 
 namespace App;
 
+use App\Models\File;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * @property integer $id
@@ -37,7 +39,7 @@ class News extends Model
     /**
      * @var array
      */
-    protected $fillable = ['author_id', 'category_id', 'alias', 'title', 'subtitle', 'content', 'thumbnail', 'img', 'img_description','actual','trand', 'created_at', 'updated_at'];
+    protected $fillable = ['author_id', 'category_id', 'alias', 'title', 'subtitle', 'content', 'thumbnail', 'img', 'img_description','actual','trend', 'created_at', 'updated_at'];
 
     public function sluggable(): array
     {
@@ -80,4 +82,29 @@ class News extends Model
     {
         return $this->hasMany('App\TagsNews');
     }
+
+    public static function createData($request){
+        $model = new self();
+        $input = $request->all();
+        $input["thumbnail"] = File::createFile($request,"thumbnail","/uploads/news/",$request->title);
+        $input["img"] = File::createFile($request,"img","/uploads/news/",$request->title);
+        $input["trend"] = $request->has("trend") == true ? 1 : 0;
+        $input["actual"] = $request->has("trend") == true ? 1 : 0;
+        $input["author_id"] = Auth::id();
+        $model->fill($input);
+        $model->save();
+        return $model->id;
+    }
+
+    public static function updateData($model,$request){
+        $input = $request->all();
+        $input["thumbnail"] = File::updateFile($request,"thumbnail","/uploads/news/",$request->title);
+        $input["img"] = File::updateFile($request,"img","/uploads/news/",$request->title);
+        $input["trend"] = $request->has("trend") == true ? 1 : 0;
+        $input["actual"] = $request->has("trend") == true ? 1 : 0;
+        $input["author_id"] = Auth::id();
+        $model->update($input);
+        return $model->save();
+    }
+
 }

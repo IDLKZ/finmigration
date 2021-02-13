@@ -45,4 +45,14 @@ class Category extends Model
     {
         return $this->hasMany('App\News');
     }
+
+    public static function createData($request){
+        $model = new self();
+        $model->fill($request->all());
+        return $model->save();
+    }
+    public static function updateData($model,$request){
+        $model->update($request->all());
+        return $model->save();
+    }
 }
