@@ -30,7 +30,8 @@
                             <input type="text" class="form-control" id="title" name="title">
                         </div>
                         <div class="card-footer ">
-                            <button type="submit" class="btn btn-fill btn-rose">Создать</button>
+                            <a href="{{route('tag.index')}}" class="btn btn-fill btn-default">Назад</a>
+                            <button type="submit" class="btn btn-fill btn-rose ml-auto">Создать</button>
                         </div>
                     </form>
                 </div>
