@@ -10,7 +10,6 @@ use Illuminate\Support\Str;
 class File extends Model
 {
     use HasFactory;
-    public $default = "/no-image.png";
 
     public static function createFile($request,$attr,$directory,$name = null){
         if($request->hasFile($attr)){
@@ -20,7 +19,7 @@ class File extends Model
             return $directory . $filename;
         }
         else{
-            return self::$default;
+            return "/no-image.png";
         }
     }
     public static function updateFile($filename,$request,$attr,$directory,$name=null){
@@ -29,12 +28,12 @@ class File extends Model
            return self::createFile($request,$attr,$directory,$name);
         }
         else{
-            return  $filename;
+            return  "/no-image.png";
         }
     }
 
     public static function deleteFile($filename){
-        if(Storage::exists($filename) && $filename !== self::$default){
+        if(Storage::exists($filename) && $filename !== "/no-image.png"){
             Storage::delete($filename);
         }
     }
