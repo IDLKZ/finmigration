@@ -22,7 +22,7 @@
                     <div class="card-icon">
                         <i class="material-icons">assignment</i>
                     </div>
-                    <h4 class="card-title">Simple Table</h4>
+                    <h4 class="card-title">Список категорий</h4>
                     <a href="{{route('category.create')}}" class="btn btn-primary create">Создать<div class="ripple-container"></div></a>
                 </div>
                 <div class="card-body">
@@ -41,9 +41,9 @@
                                 <td class="text-center">{{$loop->index+1}}</td>
                                 <td>{{$category->title}}</td>
                                 <td class="td-actions text-right">
-                                    <button type="button" rel="tooltip" class="btn btn-success btn-round" data-original-title="" title="Редактировать">
+                                    <a href="{{route('category.edit', $category->id)}}" rel="tooltip" class="btn btn-success btn-round" data-original-title="" title="Редактировать">
                                         <i class="material-icons">edit</i>
-                                    </button>
+                                    </a>
                                     <form class="d-inline" action="{{route('category.destroy', $category->id)}}" method="post">
                                         @method('delete')
                                         @csrf

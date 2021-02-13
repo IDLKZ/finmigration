@@ -103,13 +103,16 @@ class CategoryController extends Controller
             $this->validate($request,["title"=>"required|max:255"]);
             if(Category::updateData($category,$request)){
                 toastr()->success("Успешно обновлена информация о категории");
+                return redirect(route('category.index'));
             }
             else{
                 toastr()->error("Упс, что-то пошло не так");
+                return redirect()->back();
             }
         }
         else{
             toastr()->error("К сожалению, данная категория не найдена");
+            return redirect()->back();
         }
     }
 

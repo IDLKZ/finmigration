@@ -53,13 +53,12 @@ class ConferenceController extends Controller
         $this->validate($request,["img"=>"sometimes|nullable|file|image|max:4096", "title"=>"required|max:255", "content"=>"required", "advantages"=>"required", "start"=>"required|max:255", "end"=>"required|max:255", "price"=>"required|max:255","zoomId"=>"required|max:255", "password"=>"required|max:255"]);
         if(Conference::createData($request)){
             toastr()->success("Успешно создана конференция");
+            return redirect(route('conference.index'));
         }
         else{
             toastr()->error("Упс, что-то пошло не так");
+            return redirect()->back();
         }
-
-
-
     }
 
     /**
@@ -121,13 +120,16 @@ class ConferenceController extends Controller
             $this->validate($request,["img"=>"sometimes|nullable|file|image|max:4096", "title"=>"required|max:255", "content"=>"required", "advantages"=>"required", "start"=>"required|max:255", "end"=>"required|max:255", "price"=>"required|max:255", "zoomId"=>"required|max:255", "password"=>"required|max:255"]);
             if(Conference::updateData($conference,$request)){
                 toastr()->success("Успешно обновлена конференция");
+                return redirect(route('conference.index'));
             }
             else{
                 toastr()->error("Упс, что-то пошло не так");
+                return redirect()->back();
             }
         }
         else{
             toastr()->error("К сожалению данная конференция не найдена");
+            return redirect(route('conference.index'));
         }
     }
 
@@ -143,6 +145,8 @@ class ConferenceController extends Controller
         if($conference){
             File::deleteFile($conference->img);
             $conference->delete();
+            toastr()->success("Успешно удалена конференция");
+            return redirect(route('conference.index'));
         }
         else{
             toastr()->error("К сожалению данная конференция не найдена");

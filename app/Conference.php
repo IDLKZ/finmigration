@@ -45,12 +45,14 @@ class Conference extends Model
 
     public static function createData($request){
         $model = new self();
+        $input = $request->all();
         $input["img"] =File::createFile($request,"img","/uploads/conference/",$request->title);
         $model->fill($input);
         return $model->save();
     }
     public static function updateData($model,$request){
-        $input["img"] =File::updateFile($request,"img","/uploads/conference/",$request->title);
+        $input = $request->all();
+        $input["img"] = File::updateFile($request['img'], $request,"img","/uploads/conference/",$request->title);
         $model->update($input);
         return $model->save();
     }

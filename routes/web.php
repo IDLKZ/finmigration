@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ConferenceController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\AuthController;
@@ -24,6 +25,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/category', CategoryController::class);
     Route::resource('/new', NewsController::class);
     Route::resource('/tag', TagController::class);
+    Route::resource('/conference', ConferenceController::class);
 
 
     Route::get('/logout', function (){

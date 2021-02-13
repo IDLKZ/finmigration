@@ -59,6 +59,12 @@
                 <p> Посты </p>
             </a>
         </li>
+        <li class="nav-item {{ Request::is('conference*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{route('conference.index')}}">
+                <i class="material-icons">ondemand_video</i>
+                <p> Конференции </p>
+            </a>
+        </li>
 {{--        <li class="nav-item ">--}}
 {{--            <a class="nav-link" data-toggle="collapse" href="#pagesExamples">--}}
 {{--                <i class="material-icons">image</i>--}}
