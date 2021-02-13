@@ -45,6 +45,7 @@
                             @endforeach
                             </tbody>
                         </table>
+                            {{$tags->links()}}
                         @else
                         <h4 class="text-danger">Тегов еще нет</h4>
                             <a class="btn btn-info text-white" href="{{route("tag.create")}}">
