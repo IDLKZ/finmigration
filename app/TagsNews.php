@@ -10,14 +10,14 @@ use Illuminate\Database\Eloquent\Model;
  * @property integer $news_id
  * @property string $created_at
  * @property string $updated_at
- * @property News $news
+ * @property News $new
  * @property Tag $tag
  */
 class TagsNews extends Model
 {
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'integer';

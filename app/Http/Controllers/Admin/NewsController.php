@@ -20,7 +20,7 @@ class NewsController extends Controller
     public function index()
     {
         $news = News::orderBy("created_at","DESC")->with("category","user")->paginate(15);
-        return view("admin.news.index",compact("news"));
+        return view("admin.new.index",compact("news"));
     }
 
     /**
@@ -42,7 +42,7 @@ class NewsController extends Controller
         ]);
         $categories = Category::all();
         $tags = Tag::all();
-        return view("admin.news.create",compact("categories","tags","validator"));
+        return view("admin.new.create",compact("categories","tags","validator"));
     }
 
     /**
@@ -73,7 +73,7 @@ class NewsController extends Controller
     {
         $news = News::with("category","user")->find($id);
         if($news){
-            return view("admin.news.show",compact("news"));
+            return view("admin.new.show",compact("news"));
         }
         else{
             toastr()->error("Новость не найдена");
@@ -93,7 +93,7 @@ class NewsController extends Controller
             $validator = JsValidator::make(["thumbnail"=>"sometimes|nullable|file|image|max:4096", "img"=>"sometimes|nullable|file|image|max:4096", "img_description"=>"required|max:255", "title"=>"required|max:255", "subtitle"=>"required|max:255", "category_id"=>"required", "author_id"=>"required", "content"=>"required"]);
             $categories = Category::all();
             $tags = Tag::all();
-            return view("admin.news.edit",compact("validator","categories","tags","news"));
+            return view("admin.new.edit",compact("validator","categories","tags","news"));
         }
         else{
             toastr()->error("Новость не найдена");

@@ -86,8 +86,8 @@ class News extends Model
     public static function createData($request){
         $model = new self();
         $input = $request->all();
-        $input["thumbnail"] = File::createFile($request,"thumbnail","/uploads/news/",$request->title);
-        $input["img"] = File::createFile($request,"img","/uploads/news/",$request->title);
+        $input["thumbnail"] = File::createFile($request,"thumbnail","/uploads/new/",$request->title);
+        $input["img"] = File::createFile($request,"img","/uploads/new/",$request->title);
         $input["trend"] = $request->has("trend") == true ? 1 : 0;
         $input["actual"] = $request->has("trend") == true ? 1 : 0;
         $input["author_id"] = Auth::id();
@@ -98,8 +98,8 @@ class News extends Model
 
     public static function updateData($model,$request){
         $input = $request->all();
-        $input["thumbnail"] = File::updateFile($request,"thumbnail","/uploads/news/",$request->title);
-        $input["img"] = File::updateFile($request,"img","/uploads/news/",$request->title);
+        $input["thumbnail"] = File::updateFile($request,"thumbnail","/uploads/new/",$request->title);
+        $input["img"] = File::updateFile($request,"img","/uploads/new/",$request->title);
         $input["trend"] = $request->has("trend") == true ? 1 : 0;
         $input["actual"] = $request->has("trend") == true ? 1 : 0;
         $input["author_id"] = Auth::id();

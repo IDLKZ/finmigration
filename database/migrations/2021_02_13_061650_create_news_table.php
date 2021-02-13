@@ -13,7 +13,7 @@ class CreateNewsTable extends Migration
      */
     public function up()
     {
-        Schema::create('news', function (Blueprint $table) {
+        Schema::create('new', function (Blueprint $table) {
             $table->bigIncrements("id");
             $table->foreignId("author_id")->references("id")->on("users")->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId("category_id")->references("id")->on("categories")->cascadeOnUpdate()->cascadeOnDelete();
@@ -35,6 +35,6 @@ class CreateNewsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('news');
+        Schema::dropIfExists('new');
     }
 }

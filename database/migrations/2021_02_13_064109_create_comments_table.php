@@ -15,7 +15,7 @@ class CreateCommentsTable extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("news_id")->references("id")->on("news")->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId("news_id")->references("id")->on("new")->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId("user_id")->references("id")->on("users")->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId("response_id")->references("id")->on("users")->cascadeOnUpdate()->cascadeOnDelete();
             $table->text("content");

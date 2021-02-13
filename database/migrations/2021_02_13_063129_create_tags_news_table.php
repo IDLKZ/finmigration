@@ -15,8 +15,8 @@ class CreateTagsNewsTable extends Migration
     {
         Schema::create('tags_news', function (Blueprint $table) {
             $table->bigIncrements("id");
-            $table->foreignId("tags_id")->references("id")->on("tags")->cascadeOnDelete()->cascadeOnDelete();
-            $table->foreignId("news_id")->references("id")->on("news")->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId("tags_id")->references("id")->on("tag")->cascadeOnDelete()->cascadeOnDelete();
+            $table->foreignId("news_id")->references("id")->on("new")->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

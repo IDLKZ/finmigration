@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $content
  * @property string $created_at
  * @property string $updated_at
- * @property News $news
+ * @property News $new
  * @property User $user
  * @property User $user
  */
@@ -20,7 +20,7 @@ class Comment extends Model
 {
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'integer';
