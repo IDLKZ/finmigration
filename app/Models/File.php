@@ -15,7 +15,7 @@ class File extends Model
     public static function createFile($request,$attr,$directory,$name = null){
         if($request->hasFile($attr)){
             $file = $request->file($attr);
-            $filename = ($name !== null ? Str::slug($name) . Str::random(5) : Str::random(12)) . "." . $file->getOriginalExtension();
+            $filename = ($name !== null ? Str::slug($name) . Str::random(5) : Str::random(12)) . "." . $file->getClientOriginalExtension();
             $file->storeAs($directory,$filename);
             return $directory . $filename;
         }
