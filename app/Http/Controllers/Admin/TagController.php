@@ -47,6 +47,7 @@ class TagController extends Controller
         else{
             toastr()->warning("Упс, что-то пошло не так");
         }
+        return redirect(route("tag.index"));
     }
 
     /**
@@ -63,6 +64,8 @@ class TagController extends Controller
         }
         else{
             toastr()->error("К сожалению, данный тег не найден");
+            return redirect(route("tag.index"));
+
         }
     }
 
@@ -77,10 +80,12 @@ class TagController extends Controller
         $tag = Tag::find($id);
         if($tag){
             $validator = JsValidator::make(["title"=>"required|max:255"]);
-            return view("admin.tag.show",compact("tag","validator"));
+            return view("admin.tag.edit",compact("tag","validator"));
         }
         else{
             toastr()->error("К сожалению, данный тег не найден");
+            return redirect(route("tag.index"));
+
         }
     }
 
@@ -106,6 +111,8 @@ class TagController extends Controller
         else{
             toastr()->error("К сожалению, данный тег не найден");
         }
+        return redirect(route("tag.index"));
+
     }
 
     /**
@@ -124,5 +131,7 @@ class TagController extends Controller
         else{
             toastr()->error("К сожалению, данный тег не найден");
         }
+        return redirect(route("tag.index"));
+
     }
 }

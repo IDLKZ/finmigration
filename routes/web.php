@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::redirect("/","/login");
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', function () {
         return view('layout');
@@ -32,7 +33,7 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 
-Route::get('/login', [AuthController::class, 'index']);
+Route::get('/login', [AuthController::class, 'index'])->name("login");
 Route::post('/auth', [AuthController::class, 'login']);
 
 

@@ -27,6 +27,7 @@ The above copyright notice and this permission notice shall be included in all c
     <!-- CSS Files -->
     <link rel="stylesheet" href="{{asset('css/admin.css')}}">
     @push('styles')
+        @toastr_css
 </head>
 
 <body class="">
@@ -111,6 +112,12 @@ The above copyright notice and this permission notice shall be included in all c
 <!--   Core JS Files   -->
 <script src="{{asset('js/admin.js')}}"></script>
 @push('scripts')
+    @toastr_js
+    @toastr_render
+    @if(isset($validator))
+    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
+    {!! $validator->selector('#js-form') !!}
+    @endif
 </body>
 
 </html>
