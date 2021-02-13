@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Conference;
 use App\Http\Controllers\Controller;
+use App\Models\File;
 use Illuminate\Http\Request;
 use Proengsoft\JsValidation\Facades\JsValidatorFacade as JsValidator;
 
@@ -35,6 +36,8 @@ class ConferenceController extends Controller
             "start"=>"required|max:255",
             "end"=>"required|max:255",
             "price"=>"required|max:255",
+            "zoomId"=>"required|max:255",
+            "password"=>"required|max:255"
         ]);
         return view("admin.conference.create",compact("validator"));
     }
@@ -47,13 +50,14 @@ class ConferenceController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,["img"=>"sometimes|nullable|file|image|max:4096", "title"=>"required|max:255", "content"=>"required", "advantages"=>"required", "start"=>"required|max:255", "end"=>"required|max:255", "price"=>"required|max:255",]);
-        if(){
-
+        $this->validate($request,["img"=>"sometimes|nullable|file|image|max:4096", "title"=>"required|max:255", "content"=>"required", "advantages"=>"required", "start"=>"required|max:255", "end"=>"required|max:255", "price"=>"required|max:255","zoomId"=>"required|max:255", "password"=>"required|max:255"]);
+        if(Conference::createData($request)){
+            toastr()->success("Успешно создана конференция");
         }
         else{
-
+            toastr()->error("Упс, что-то пошло не так");
         }
+
 
 
     }
@@ -66,7 +70,13 @@ class ConferenceController extends Controller
      */
     public function show($id)
     {
-        //
+        $conference = Conference::find($id);
+        if($conference){
+            return view("admin.conference.show",compact("conference"));
+        }
+        else{
+            toastr()->error("К сожалению данная конференция не найдена");
+        }
     }
 
     /**
@@ -77,7 +87,24 @@ class ConferenceController extends Controller
      */
     public function edit($id)
     {
-        //
+        $conference = Conference::find($id);
+        if($conference){
+            $validator = JsValidator::make([
+                "img"=>"sometimes|nullable|file|image|max:4096",
+                "title"=>"required|max:255",
+                "content"=>"required",
+                "advantages"=>"required",
+                "start"=>"required|max:255",
+                "end"=>"required|max:255",
+                "price"=>"required|max:255",
+                "zoomId"=>"required|max:255",
+                "password"=>"required|max:255"
+            ]);
+            return view("admin.conference.edit",compact("conference","validator"));
+        }
+        else{
+            toastr()->error("К сожалению данная конференция не найдена");
+        }
     }
 
     /**
@@ -89,7 +116,19 @@ class ConferenceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $conference = Conference::find($id);
+        if($conference){
+            $this->validate($request,["img"=>"sometimes|nullable|file|image|max:4096", "title"=>"required|max:255", "content"=>"required", "advantages"=>"required", "start"=>"required|max:255", "end"=>"required|max:255", "price"=>"required|max:255", "zoomId"=>"required|max:255", "password"=>"required|max:255"]);
+            if(Conference::updateData($conference,$request)){
+                toastr()->success("Успешно обновлена конференция");
+            }
+            else{
+                toastr()->error("Упс, что-то пошло не так");
+            }
+        }
+        else{
+            toastr()->error("К сожалению данная конференция не найдена");
+        }
     }
 
     /**
@@ -100,6 +139,13 @@ class ConferenceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $conference = Conference::find($id);
+        if($conference){
+            File::deleteFile($conference->img);
+            $conference->delete();
+        }
+        else{
+            toastr()->error("К сожалению данная конференция не найдена");
+        }
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Models\File;
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -19,6 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Conference extends Model
 {
+    use Sluggable;
     /**
      * The "type" of the auto-incrementing ID.
      *
@@ -29,12 +32,27 @@ class Conference extends Model
     /**
      * @var array
      */
-    protected $fillable = ['title', 'img', 'alias', 'content', 'start', 'end', 'advantages', 'price', 'created_at', 'updated_at'];
+    protected $fillable = ['title', 'img', 'alias', 'content', 'start', 'end', 'advantages', 'price',"zoomId","password",'created_at', 'updated_at'];
 
-    public function createData($request){
+    public function sluggable(): array
+    {
+        return [
+            'alias' => [
+                'source' => 'title'
+            ]
+        ];
+    }
+
+    public static function createData($request){
         $model = new self();
-
-
+        $input["img"] =File::createFile($request,"img","/uploads/conference/",$request->title);
+        $model->fill($input);
+        return $model->save();
+    }
+    public static function updateData($model,$request){
+        $input["img"] =File::updateFile($request,"img","/uploads/conference/",$request->title);
+        $model->update($input);
+        return $model->save();
     }
 
 
