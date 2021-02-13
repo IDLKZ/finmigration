@@ -1,4 +1,19 @@
 @extends('layout')
+@push('styles')
+    <style>
+        .create{
+            border-radius: 3px;
+            background-color: #999999;
+            padding: 15px;
+            margin-top: -60px;
+            margin-right: 15px;
+            float: right;
+            box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(233, 30, 99, 0.4);
+            background: linear-gradient(60deg, #ec407a, #d81b60);
+            background-color: rgba(0, 0, 0, 0);
+        }
+    </style>
+@endpush
 @section('content')
     <div class="row">
         <div class="col-md-12">
@@ -8,6 +23,8 @@
                         <i class="material-icons">assignment</i>
                     </div>
                     <h4 class="card-title">Теги</h4>
+                    <a href="{{route('tag.create')}}" class="btn btn-primary create">Создать<div class="ripple-container"></div></a>
+
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">

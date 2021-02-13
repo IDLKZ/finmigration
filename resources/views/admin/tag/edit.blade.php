@@ -31,7 +31,8 @@
                             <input type="text" class="form-control" id="title" name="title" value="{{$tag->title}}">
                         </div>
                         <div class="card-footer ">
-                            <button type="submit" class="btn btn-fill btn-rose">Изменить</button>
+                            <a href="{{route('tag.index')}}" class="btn btn-fill btn-default">Назад</a>
+                            <button type="submit" class="btn btn-fill btn-rose ml-auto">Изменить</button>
                         </div>
                     </form>
                 </div>

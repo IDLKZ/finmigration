@@ -53,10 +53,10 @@
                 <p> Теги </p>
             </a>
         </li>
-        <li class="nav-item {{ Request::is('new*') ? 'active' : '' }}">
-            <a class="nav-link" href="{{route('new.index')}}">
-                <i class="material-icons">fiber_new</i>
-                <p> Посты </p>
+        <li class="nav-item {{ Request::is('news*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{route('news.index')}}">
+                <i class="material-icons">article</i>
+                <p> Новости </p>
             </a>
         </li>
 {{--        <li class="nav-item ">--}}

@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $alias
  * @property string $created_at
  * @property string $updated_at
- * @property News[] $new
+ * @property News[] $news
  */
 class Category extends Model
 {

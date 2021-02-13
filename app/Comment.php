@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $content
  * @property string $created_at
  * @property string $updated_at
- * @property News $new
+ * @property News $news
  * @property User $user
  * @property User $user
  */
