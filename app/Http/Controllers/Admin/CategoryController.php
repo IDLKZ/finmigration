@@ -43,9 +43,11 @@ class CategoryController extends Controller
         $this->validate($request,["title"=>"required|max:255"]);
         if(Category::createData($request)){
             toastr()->success("Успешно создана категория");
+            return redirect(route('category.index'));
         }
         else{
             toastr()->error("Что-то пошло не так");
+            return redirect()->back();
         }
 
     }
@@ -123,9 +125,11 @@ class CategoryController extends Controller
         if($category){
             toastr()->success("Успешно удалена категория");
             $category->delete();
+            return redirect(route('category.index'));
         }
         else{
             toastr()->error("К сожалению, данная категория не найдена");
+            return redirect()->back();
         }
     }
 }

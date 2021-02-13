@@ -1,4 +1,19 @@
 @extends('layout')
+@push('styles')
+    <style>
+        .create{
+            border-radius: 3px;
+            background-color: #999999;
+            padding: 15px;
+            margin-top: -60px;
+            margin-right: 15px;
+            float: right;
+            box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(233, 30, 99, 0.4);
+            background: linear-gradient(60deg, #ec407a, #d81b60);
+            background-color: rgba(0, 0, 0, 0);
+        }
+    </style>
+@endpush
 @section('content')
     <div class="row">
         <div class="col-md-12">
@@ -8,6 +23,7 @@
                         <i class="material-icons">assignment</i>
                     </div>
                     <h4 class="card-title">Simple Table</h4>
+                    <a href="{{route('category.create')}}" class="btn btn-primary create">Создать<div class="ripple-container"></div></a>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -15,104 +31,31 @@
                             <thead>
                             <tr>
                                 <th class="text-center">#</th>
-                                <th>Name</th>
-                                <th>Job Position</th>
-                                <th>Since</th>
-                                <th class="text-right">Salary</th>
-                                <th class="text-right">Actions</th>
+                                <th>Наименование</th>
+                                <th class="text-right">Действие</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td class="text-center">1</td>
-                                <td>Andrew Mike</td>
-                                <td>Develop</td>
-                                <td>2013</td>
-                                <td class="text-right">€ 99,225</td>
+                            @foreach($categories as $category)
+                                <tr>
+                                <td class="text-center">{{$loop->index+1}}</td>
+                                <td>{{$category->title}}</td>
                                 <td class="td-actions text-right">
-                                    <button type="button" rel="tooltip" class="btn btn-info" data-original-title="" title="">
-                                        <i class="material-icons">person</i>
-                                    </button>
-                                    <button type="button" rel="tooltip" class="btn btn-success" data-original-title="" title="">
+                                    <button type="button" rel="tooltip" class="btn btn-success btn-round" data-original-title="" title="Редактировать">
                                         <i class="material-icons">edit</i>
                                     </button>
-                                    <button type="button" rel="tooltip" class="btn btn-danger" data-original-title="" title="">
-                                        <i class="material-icons">close</i>
-                                    </button>
+                                    <form class="d-inline" action="{{route('category.destroy', $category->id)}}" method="post">
+                                        @method('delete')
+                                        @csrf
+                                        <button type="submit" rel="tooltip" class="btn btn-danger btn-round" data-original-title="" title="Удалить">
+                                            <i class="material-icons">close</i>
+                                        </button>
+                                    </form>
+
+
                                 </td>
                             </tr>
-                            <tr>
-                                <td class="text-center">2</td>
-                                <td>John Doe</td>
-                                <td>Design</td>
-                                <td>2012</td>
-                                <td class="text-right">€ 89,241</td>
-                                <td class="td-actions text-right">
-                                    <button type="button" rel="tooltip" class="btn btn-info btn-round" data-original-title="" title="">
-                                        <i class="material-icons">person</i>
-                                    </button>
-                                    <button type="button" rel="tooltip" class="btn btn-success btn-round" data-original-title="" title="">
-                                        <i class="material-icons">edit</i>
-                                    </button>
-                                    <button type="button" rel="tooltip" class="btn btn-danger btn-round" data-original-title="" title="">
-                                        <i class="material-icons">close</i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">3</td>
-                                <td>Alex Mike</td>
-                                <td>Design</td>
-                                <td>2010</td>
-                                <td class="text-right">€ 92,144</td>
-                                <td class="td-actions text-right">
-                                    <button type="button" rel="tooltip" class="btn btn-info btn-link" data-original-title="" title="">
-                                        <i class="material-icons">person</i>
-                                    </button>
-                                    <button type="button" rel="tooltip" class="btn btn-success btn-link" data-original-title="" title="">
-                                        <i class="material-icons">edit</i>
-                                    </button>
-                                    <button type="button" rel="tooltip" class="btn btn-danger btn-link" data-original-title="" title="">
-                                        <i class="material-icons">close</i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">4</td>
-                                <td>Mike Monday</td>
-                                <td>Marketing</td>
-                                <td>2013</td>
-                                <td class="text-right">€ 49,990</td>
-                                <td class="td-actions text-right">
-                                    <button type="button" rel="tooltip" class="btn btn-info btn-round" data-original-title="" title="">
-                                        <i class="material-icons">person</i>
-                                    </button>
-                                    <button type="button" rel="tooltip" class="btn btn-success btn-round" data-original-title="" title="">
-                                        <i class="material-icons">edit</i>
-                                    </button>
-                                    <button type="button" rel="tooltip" class="btn btn-danger btn-round" data-original-title="" title="">
-                                        <i class="material-icons">close</i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">5</td>
-                                <td>Paul Dickens</td>
-                                <td>Communication</td>
-                                <td>2015</td>
-                                <td class="text-right">€ 69,201</td>
-                                <td class="td-actions text-right">
-                                    <button type="button" rel="tooltip" class="btn btn-info" data-original-title="" title="">
-                                        <i class="material-icons">person</i>
-                                    </button>
-                                    <button type="button" rel="tooltip" class="btn btn-success" data-original-title="" title="">
-                                        <i class="material-icons">edit</i>
-                                    </button>
-                                    <button type="button" rel="tooltip" class="btn btn-danger" data-original-title="" title="">
-                                        <i class="material-icons">close</i>
-                                    </button>
-                                </td>
-                            </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>

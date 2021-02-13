@@ -35,25 +35,25 @@
         </div>
     </div>
     <ul class="nav">
-        <li class="nav-item active ">
+        <li class="nav-item {{ Request::is('/') ? 'active' : '' }} ">
             <a class="nav-link" href="/">
                 <i class="material-icons">dashboard</i>
                 <p> Главная </p>
             </a>
         </li>
-        <li class="nav-item ">
+        <li class="nav-item {{ Request::is('category*') ? 'active' : '' }}">
             <a class="nav-link" href="{{route('category.index')}}">
                 <i class="material-icons">category</i>
                 <p> Категории </p>
             </a>
         </li>
-        <li class="nav-item ">
+        <li class="nav-item {{ Request::is('tag*') ? 'active' : '' }}">
             <a class="nav-link" href="{{route('tag.index')}}">
                 <i class="material-icons">tag</i>
                 <p> Теги </p>
             </a>
         </li>
-        <li class="nav-item ">
+        <li class="nav-item {{ Request::is('new*') ? 'active' : '' }}">
             <a class="nav-link" href="{{route('new.index')}}">
                 <i class="material-icons">fiber_new</i>
                 <p> Посты </p>

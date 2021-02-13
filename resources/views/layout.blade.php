@@ -26,7 +26,7 @@ The above copyright notice and this permission notice shall be included in all c
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
     <!-- CSS Files -->
     <link rel="stylesheet" href="{{asset('css/admin.css')}}">
-    @push('styles')
+    @stack('styles')
         @toastr_css
 </head>
 
@@ -111,7 +111,7 @@ The above copyright notice and this permission notice shall be included in all c
 
 <!--   Core JS Files   -->
 <script src="{{asset('js/admin.js')}}"></script>
-@push('scripts')
+@stack('scripts')
     @toastr_js
     @toastr_render
     @if(isset($validator))
