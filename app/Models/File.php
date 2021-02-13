@@ -28,7 +28,7 @@ class File extends Model
            return self::createFile($request,$attr,$directory,$name);
         }
         else{
-            return  "/no-image.png";
+            return  $filename;
         }
     }
 

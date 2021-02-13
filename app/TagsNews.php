@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property integer $news_id
  * @property string $created_at
  * @property string $updated_at
- * @property News $new
+ * @property News $news
  * @property Tag $tag
  */
 class TagsNews extends Model
@@ -41,5 +41,31 @@ class TagsNews extends Model
     public function tag()
     {
         return $this->belongsTo('App\Tag', 'tags_id');
+    }
+
+    public static function createTagAndNews($data,$newsId){
+        if(isset($data)){
+            if(count($data)){
+                foreach ($data as $id => $tagsId){
+                    $model = new self();
+                    $model->tags_id = $tagsId;
+                    $model->news_id = $newsId;
+                    $model->save();
+                }
+            }
+        }
+    }
+    public static function updateTags($data,$newsId,$news){
+        $news->tagNews()->delete();
+        if(isset($data)){
+            if(count($data)){
+                foreach ($data as $id => $tagsId){
+                    $model = new self();
+                    $model->tags_id = $tagsId;
+                    $model->news_id = $newsId;
+                    $model->save();
+                }
+            }
+        }
     }
 }

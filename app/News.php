@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Models\File;
+use App\Models\User;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -56,7 +57,7 @@ class News extends Model
      */
     public function user()
     {
-        return $this->belongsTo('App\User', 'author_id');
+        return $this->belongsTo(User::class, 'author_id');
     }
 
     /**
@@ -83,13 +84,14 @@ class News extends Model
         return $this->hasMany('App\TagsNews');
     }
 
+
     public static function createData($request){
         $model = new self();
         $input = $request->all();
-        $input["thumbnail"] = File::createFile($request,"thumbnail","/uploads/new/",$request->title);
-        $input["img"] = File::createFile($request,"img","/uploads/new/",$request->title);
+        $input["thumbnail"] = File::createFile($request,"thumbnail","/uploads/news/",$request->title);
+        $input["img"] = File::createFile($request,"img","/uploads/news/",$request->title);
         $input["trend"] = $request->has("trend") == true ? 1 : 0;
-        $input["actual"] = $request->has("trend") == true ? 1 : 0;
+        $input["actual"] = $request->has("actual") == true ? 1 : 0;
         $input["author_id"] = Auth::id();
         $model->fill($input);
         $model->save();
@@ -98,10 +100,10 @@ class News extends Model
 
     public static function updateData($model,$request){
         $input = $request->all();
-        $input["thumbnail"] = File::updateFile($request,"thumbnail","/uploads/new/",$request->title);
-        $input["img"] = File::updateFile($request,"img","/uploads/new/",$request->title);
+        $input["thumbnail"] = File::updateFile($model->thumbnail,$request,"thumbnail","/uploads/news/",$request->title);
+        $input["img"] = File::updateFile($model->img,$request,"img","/uploads/news/",$request->title);
         $input["trend"] = $request->has("trend") == true ? 1 : 0;
-        $input["actual"] = $request->has("trend") == true ? 1 : 0;
+        $input["actual"] = $request->has("actual") == true ? 1 : 0;
         $input["author_id"] = Auth::id();
         $model->update($input);
         return $model->save();

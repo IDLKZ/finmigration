@@ -23,7 +23,7 @@ Route::group(['middleware' => 'auth'], function () {
         return view('layout');
     });
     Route::resource('/category', CategoryController::class);
-    Route::resource('/new', NewsController::class);
+    Route::resource('/news', NewsController::class);
     Route::resource('/tag', TagController::class);
     Route::resource('/conference', ConferenceController::class);
 

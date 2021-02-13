@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\File;
 use App\News;
 use App\Tag;
+use App\TagsNews;
 use Illuminate\Http\Request;
 use Proengsoft\JsValidation\Facades\JsValidatorFacade as JsValidator;
 
@@ -20,11 +21,11 @@ class NewsController extends Controller
     public function index()
     {
         $news = News::orderBy("created_at","DESC")->with("category","user")->paginate(15);
-        return view("admin.new.index",compact("news"));
+        return view("admin.news.index",compact("news"));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a news resource.
      *
      * @return \Illuminate\Http\Response
      */
@@ -37,12 +38,12 @@ class NewsController extends Controller
             "title"=>"required|max:255",
             "subtitle"=>"required|max:255",
             "category_id"=>"required",
-            "author_id"=>"required",
+
             "content"=>"required"
         ]);
         $categories = Category::all();
         $tags = Tag::all();
-        return view("admin.new.create",compact("categories","tags","validator"));
+        return view("admin.news.create",compact("categories","tags","validator"));
     }
 
     /**
@@ -53,13 +54,15 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,["thumbnail"=>"sometimes|nullable|file|image|max:4096", "img"=>"sometimes|nullable|file|image|max:4096", "img_description"=>"required|max:255", "title"=>"required|max:255", "subtitle"=>"required|max:255", "category_id"=>"required", "author_id"=>"required", "content"=>"required"]);
+        $this->validate($request,["thumbnail"=>"sometimes|nullable|file|image|max:4096", "img"=>"sometimes|nullable|file|image|max:4096", "img_description"=>"required|max:255", "title"=>"required|max:255", "subtitle"=>"required|max:255", "category_id"=>"required", "content"=>"required"]);
         if($id = News::createData($request)){
+            TagsNews::createTagAndNews($request->tags,$id);
             toastr()->success("Успешно создана новость");
         }
         else{
             toastr()->warning("Упс, что-то пошло не так");
         }
+        return redirect(route("news.index"));
 
     }
 
@@ -73,11 +76,13 @@ class NewsController extends Controller
     {
         $news = News::with("category","user")->find($id);
         if($news){
-            return view("admin.new.show",compact("news"));
+            return view("admin.news.show",compact("news"));
         }
         else{
             toastr()->error("Новость не найдена");
         }
+        return redirect(route("news.index"));
+
     }
 
     /**
@@ -90,14 +95,17 @@ class NewsController extends Controller
     {
         $news = News::with("category","user")->find($id);
         if($news){
-            $validator = JsValidator::make(["thumbnail"=>"sometimes|nullable|file|image|max:4096", "img"=>"sometimes|nullable|file|image|max:4096", "img_description"=>"required|max:255", "title"=>"required|max:255", "subtitle"=>"required|max:255", "category_id"=>"required", "author_id"=>"required", "content"=>"required"]);
+            $validator = JsValidator::make(["thumbnail"=>"sometimes|nullable|file|image|max:4096", "img"=>"sometimes|nullable|file|image|max:4096", "img_description"=>"required|max:255", "title"=>"required|max:255", "subtitle"=>"required|max:255", "category_id"=>"required", "content"=>"required"]);
             $categories = Category::all();
             $tags = Tag::all();
-            return view("admin.new.edit",compact("validator","categories","tags","news"));
+
+            return view("admin.news.edit",compact("validator","categories","tags","news"));
         }
         else{
             toastr()->error("Новость не найдена");
         }
+        return redirect(route("news.index"));
+
     }
 
     /**
@@ -111,8 +119,9 @@ class NewsController extends Controller
     {
         $news = News::with("category","user")->find($id);
         if($news){
-            $this->validate($request,["thumbnail"=>"sometimes|nullable|file|image|max:4096", "img"=>"sometimes|nullable|file|image|max:4096", "img_description"=>"required|max:255", "title"=>"required|max:255", "subtitle"=>"required|max:255", "category_id"=>"required", "author_id"=>"required", "content"=>"required"]);
+            $this->validate($request,["thumbnail"=>"sometimes|nullable|file|image|max:4096", "img"=>"sometimes|nullable|file|image|max:4096", "img_description"=>"required|max:255", "title"=>"required|max:255", "subtitle"=>"required|max:255", "category_id"=>"required", "content"=>"required"]);
             if(News::updateData($news,$request)){
+                TagsNews::createTagAndNews($request->tags,$news->id);
                 toastr()->success("Успешно обновлена информация");
             }
             else{
@@ -122,6 +131,8 @@ class NewsController extends Controller
         else{
             toastr()->error("Новость не найдена");
         }
+        return redirect(route("news.index"));
+
     }
 
     /**
@@ -141,5 +152,9 @@ class NewsController extends Controller
         else{
             toastr()->error("Новость не найдена");
         }
+        return redirect(route("news.index"));
+
     }
+
+
 }
