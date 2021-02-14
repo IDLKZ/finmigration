@@ -62,6 +62,6 @@
         </div>
         @endforeach
     </div>
-
+    {!! $conferences->links() !!}
     <a href="{{route('conference.create')}}" class="btn create">+<div class="ripple-container"></div></a>
 @endsection
