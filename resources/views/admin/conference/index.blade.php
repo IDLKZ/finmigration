@@ -29,9 +29,9 @@
                         <button type="button" class="btn btn-danger btn-link fix-broken-card">
                             <i class="material-icons">build</i> Fix Header!
                         </button>
-                        <button type="button" class="btn btn-default btn-link" rel="tooltip" data-placement="bottom" title="" data-original-title="Посмотреть" aria-describedby="tooltip370414">
+                        <a href="{{route('conference.show', $conference->id)}}" class="btn btn-default btn-link" rel="tooltip" data-placement="bottom" title="" data-original-title="Посмотреть" aria-describedby="tooltip370414">
                             <i class="material-icons">art_track</i>
-                        </button>
+                        </a>
                         <a href="{{route('conference.edit', $conference->id)}}" class="btn btn-success btn-link" rel="tooltip" data-placement="bottom" title="" data-original-title="Редактировать">
                             <i class="material-icons">edit</i>
                         </a>

@@ -36,7 +36,7 @@
             <div class="card card-product" data-count="10" style="min-height: 500px">
                 <div class="card-header card-header-image" data-header-animation="true">
                     <a href="{{route("news.show",$item->id)}}">
-                        <img class="img" src="{{$item->thumbnail}}">
+                        <img class="img" src="{{$item->thumbnail}}" style="width: 100%; height: 220px">
                     </a>
                 </div>
                 <div class="card-body">
