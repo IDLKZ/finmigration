@@ -84,6 +84,10 @@ class News extends Model
         return $this->hasMany('App\TagsNews');
     }
 
+    public function tags(){
+        return $this->belongsToMany(Tag::class,"tags_news","news_id","tags_id");
+    }
+
 
     public static function createData($request){
         $model = new self();
@@ -107,6 +111,18 @@ class News extends Model
         $input["author_id"] = Auth::id();
         $model->update($input);
         return $model->save();
+    }
+
+    public static function giveData($category){
+        $news["category"] = $category->title;
+        $news["count"] = count(News::where("category_id",$category->id)->get());
+        $news["trend"] = News::where("category_id",$category->id)->where("trend",1)->orderBy("created_at","DESC")->with("user")->first();
+        if(News::where("actual",1)->where("category_id",$category->id)->count() > 3){$news["actual"] = News::where("category_id",$category->id)->where("trend",0)->where("actual",1)->with("user")->get()->take(3);}
+        else{$news["actual"][0] = News::where("category_id",$category->id)->orderBy("created_at","DESC")->with("user")->first();}
+        $news["news"] = News::where("category_id",$category->id)->orderBy("created_at","DESC")->with("user")->paginate(5);
+        if(News::where("trend",1)->get()->count()>2){$news["all_trend"] = News::where("trend",1)->orderBy("created_at","DESC")->get()->take(3);} else{$news["all_trend"] = [];}
+        if(News::where("actual",1)->get()->count()>2){$news["all_actual"] = News::where("actual",1)->orderBy("created_at","DESC")->get()->take(3);} else{$news["all_actual"] = [];}
+        return $news;
     }
 
 }

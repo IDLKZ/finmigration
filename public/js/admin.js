@@ -6500,7 +6500,7 @@ demo = {
 
   initPickColor: function() {
     $('.pick-class-label').click(function() {
-      var new_class = $(this).attr('new-class');
+      var new_class = $(this).attr('news-class');
       var old_class = $('#display-buttons').attr('data-class');
       var display_div = $('#display-buttons');
       if (display_div.length) {

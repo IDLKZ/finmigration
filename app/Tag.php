@@ -45,6 +45,10 @@ class Tag extends Model
         return $this->hasMany('App\TagsNews', 'tags_id');
     }
 
+    public function tags(){
+        return $this->belongsToMany(News::class,"tags_news","tags_id","news_id");
+    }
+
     public static function createData($request){
         $model = new self();
         $model->fill($request->all());
