@@ -36,4 +36,6 @@ Route::get("/future-actual-conference",[ConferenceController::class,"futureActua
 
 Route::get("/conference-show/{alias}",[ConferenceController::class,"show"]);
 
+Route::get('/get-news', [NewsController::class, 'getNews']);
+
 Route::post("/participant-create",[ConferenceController::class,"participants"]);
