@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\CategoriesController;
 use App\Http\Controllers\Api\NewsController;
 use App\Http\Controllers\Api\TagController;
 use App\Http\Controllers\Api\ConferenceController;
+use App\Http\Controllers\Admin\ParticipantController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -34,3 +35,5 @@ Route::get("/future-conference",[ConferenceController::class,"futureConference"]
 Route::get("/future-actual-conference",[ConferenceController::class,"futureActualConference"]);
 
 Route::get("/conference-show/{alias}",[ConferenceController::class,"show"]);
+
+Route::post("/participant-create",[ConferenceController::class,"participants"]);

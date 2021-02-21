@@ -6,7 +6,7 @@ use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Admin\ParticipantController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,8 +26,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/news', NewsController::class);
     Route::resource('/tag', TagController::class);
     Route::resource('/conference', ConferenceController::class);
-
-
+    Route::resource("/participant",ParticipantController::class);
     Route::get('/logout', function (){
        Auth::logout();
        return redirect('/login');

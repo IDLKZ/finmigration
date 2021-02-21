@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Conference;
 use App\Http\Controllers\Controller;
+use App\Models\Participant;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -42,5 +43,9 @@ class ConferenceController extends Controller
     public function show($alias){
         $conference = Conference::where("alias",$alias)->first();
         return response()->json($conference);
+    }
+
+    public function participants(Request $request){
+        return Participant::createData($request);
     }
 }

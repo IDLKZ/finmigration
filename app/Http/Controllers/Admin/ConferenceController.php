@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Conference;
 use App\Http\Controllers\Controller;
 use App\Models\File;
+use App\Models\Participant;
 use Illuminate\Http\Request;
 use Proengsoft\JsValidation\Facades\JsValidatorFacade as JsValidator;
 
@@ -71,7 +72,9 @@ class ConferenceController extends Controller
     {
         $conference = Conference::find($id);
         if($conference){
-            return view("admin.conference.show",compact("conference"));
+            $participants_request = Participant::where("status",0)->where("conference_id",$conference->id)->get();
+            $participants_confirmed = Participant::where("status",1)->where("conference_id",$conference->id)->get();
+            return view("admin.conference.show",compact("conference","participants_request","participants_confirmed"));
         }
         else{
             toastr()->error("К сожалению данная конференция не найдена");

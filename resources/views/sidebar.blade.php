@@ -65,30 +65,13 @@
                 <p> Конференции </p>
             </a>
         </li>
-{{--        <li class="nav-item ">--}}
-{{--            <a class="nav-link" data-toggle="collapse" href="#pagesExamples">--}}
-{{--                <i class="material-icons">image</i>--}}
-{{--                <p> Pages--}}
-{{--                    <b class="caret"></b>--}}
-{{--                </p>--}}
-{{--            </a>--}}
-{{--            <div class="collapse" id="pagesExamples">--}}
-{{--                <ul class="nav">--}}
-{{--                    <li class="nav-item ">--}}
-{{--                        <a class="nav-link" href="../examples/pages/pricing.html">--}}
-{{--                            <span class="sidebar-mini"> P </span>--}}
-{{--                            <span class="sidebar-normal"> Pricing </span>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                    <li class="nav-item ">--}}
-{{--                        <a class="nav-link" href="../examples/pages/rtl.html">--}}
-{{--                            <span class="sidebar-mini"> RS </span>--}}
-{{--                            <span class="sidebar-normal"> RTL Support </span>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                </ul>--}}
-{{--            </div>--}}
-{{--        </li>--}}
+        <li class="nav-item {{ Request::is('participant*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{route('participant.index')}}">
+                <i class="material-icons">ondemand_video</i>
+                <p> Участники </p>
+            </a>
+        </li>
+
 
         <li class="nav-item ">
             <a class="nav-link" href="/logout">
