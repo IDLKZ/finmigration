@@ -42,6 +42,14 @@ class Conference extends Model
             ]
         ];
     }
+    public function getStartAttribute($value)
+    {
+        return \DateTime::createFromFormat('d/m/Y H:i', $value)->getTimestamp() * 1000;
+    }
+    public function getEndAttribute($value)
+    {
+        return \DateTime::createFromFormat('d/m/Y H:i', $value)->getTimestamp() * 1000;
+    }
 
     public static function createData($request){
         $model = new self();
@@ -52,7 +60,10 @@ class Conference extends Model
     }
     public static function updateData($model,$request){
         $input = $request->all();
-        $input["img"] = File::updateFile($request['img'], $request,"img","/uploads/conference/",$request->title);
+        if($request->hasFile("img"))
+        {
+            $input["img"] = File::updateFile($request['img'], $request,"img","/uploads/conference/",$request->title);
+        }
         $model->update($input);
         return $model->save();
     }

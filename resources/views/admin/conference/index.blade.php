@@ -1,16 +1,22 @@
 @extends('layout')
 @push('styles')
     <style>
-        .create{
-            position: absolute;
+
+        .btn-circle.btn-xl {
+            width: 70px;
+            height: 70px;
+            padding: 10px 16px;
+            border-radius: 35px;
+            font-size: 24px;
+            text-align: center;
+            position: sticky;
             right: 30px;
             bottom: 60px;
-            border-radius: 70%;
-            font-size: 24px;
-            background-color: #999999;
-            box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(233, 30, 99, 0.4);
-            background: linear-gradient(60deg, #ec407a, #d81b60);
-            background-color: rgba(0, 0, 0, 0);
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+            z-index: 20;
         }
     </style>
 @endpush
@@ -43,12 +49,9 @@
                             </button>
                         </form>
                     </div>
-                    <h4 class="card-title">
-                        <a href="javascript:void (0)" class="text-truncate">{{$conference->title}}</a>
+                    <h4 class="card-title text-wrap">
+                        <a href="javascript:void (0)" class="text-truncate" style="word-break: break-all">{{$conference->title}}</a>
                     </h4>
-                    <div class="card-description text-truncate">
-                        {!! $conference->content !!}
-                    </div>
                 </div>
                 <div class="card-footer">
                     <div class="stats">
@@ -63,5 +66,5 @@
         @endforeach
     </div>
     {!! $conferences->links() !!}
-    <a href="{{route('conference.create')}}" class="btn create">+<div class="ripple-container"></div></a>
+    <a href="{{route('conference.create')}}" type="button" class="btn btn-danger btn-circle btn-xl">+</a>
 @endsection

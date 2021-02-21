@@ -45,7 +45,7 @@ class Tag extends Model
         return $this->hasMany('App\TagsNews', 'tags_id');
     }
 
-    public function tags(){
+    public function news(){
         return $this->belongsToMany(News::class,"tags_news","tags_id","news_id");
     }
 
