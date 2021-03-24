@@ -47,6 +47,7 @@
                             <input type="text" class="form-control" id="title" name="subtitle">
                         </div>
                         <div class="form-group bmd-form-group">
+                            <p>Категория</p>
                             <select class="category w-100" id="category" name="category_id">
                                 @if($categories->isNotEmpty())
                                 @foreach($categories as $category)
@@ -56,6 +57,7 @@
                             </select>
                         </div>
                         <div class="form-group bmd-form-group">
+                            <p>Теги</p>
                             <select class="tags w-100" id="category" name="tags[]" multiple="multiple">
                                 @if($tags->isNotEmpty())
                                     @foreach($tags as $tag)
@@ -139,6 +141,7 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>    <!-- Latest compiled and minified JavaScript -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/4.0.0/js/jasny-bootstrap.min.js"></script>
+    <script src="/js/plugin.js"></script>
     <script>
         $(document).ready(function() {
             $('.fileinput').fileinput();
@@ -148,7 +151,11 @@
                 tags: true
             });
 
-            CKEDITOR.replace( 'content' );
+            CKEDITOR.replace( 'content',{
+                filebrowserUploadUrl: "{{route('ckeditor.upload', ['_token' => csrf_token() ])}}",
+                filebrowserUploadMethod: 'form'
+            });
+
         });
     </script>
 @endpush

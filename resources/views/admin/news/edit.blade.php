@@ -48,6 +48,7 @@
                             <input type="text" class="form-control" id="title" name="subtitle" value="{{$news->subtitle}}">
                         </div>
                         <div class="form-group bmd-form-group">
+                            <p>Категория</p>
                             <select class="category w-100" id="category" name="category_id">
                                 <option value="{{$news->category_id}}">{{$news->category->title}}</option>
                                 @if($categories->isNotEmpty())
@@ -60,6 +61,7 @@
                             </select>
                         </div>
                         <div class="form-group bmd-form-group">
+                            <p>Теги</p>
                             <select class="tags w-100" id="category" name="tags[]" multiple="multiple">
                                 @if($tags->isNotEmpty())
                                     @foreach($tags as $tag)
@@ -158,7 +160,10 @@
                 tags: true,
             });
 
-            CKEDITOR.replace( 'content' );
+            CKEDITOR.replace( 'content',{
+                filebrowserUploadUrl: "{{route('ckeditor.upload', ['_token' => csrf_token() ])}}",
+                filebrowserUploadMethod: 'form'
+            });
         });
     </script>
 @endpush

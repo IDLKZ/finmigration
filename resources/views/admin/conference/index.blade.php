@@ -49,7 +49,7 @@
                             </button>
                         </form>
                     </div>
-                    <h4 class="card-title text-wrap">
+                    <h4 class="card-title" style=" word-wrap: break-word;">
                         <a href="javascript:void (0)" class="text-truncate" style="word-break: break-all">{{$conference->title}}</a>
                     </h4>
                 </div>

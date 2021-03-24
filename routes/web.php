@@ -33,6 +33,7 @@ Route::group(['middleware' => 'auth'], function () {
     });
 });
 
+Route::post('ckeditor/upload', [NewsController::class,"upload"])->name('ckeditor.upload');
 
 Route::get('/login', [AuthController::class, 'index'])->name("login");
 Route::post('/auth', [AuthController::class, 'login']);
